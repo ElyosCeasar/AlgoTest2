@@ -1,0 +1,5 @@
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Disjoint_set\bin\Debug\Disjoint_set.dll
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Disjoint_set\bin\Debug\Disjoint_set.pdb
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Disjoint_set\obj\Debug\Disjoint_set.csprojResolveAssemblyReference.cache
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Disjoint_set\obj\Debug\Disjoint_set.dll
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Disjoint_set\obj\Debug\Disjoint_set.pdb
