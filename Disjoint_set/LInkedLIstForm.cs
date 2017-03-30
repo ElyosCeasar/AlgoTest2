@@ -8,8 +8,25 @@ using System.Threading.Tasks;
 
 namespace Disjoint_set
 {
-    public class LinkedLIstForm<T>
+    /// <summary>
+    /// در این پیاده سازی ما باید از مت د استاتیک  LinkedLIstForm<>.Make()
+    /// برای ساخت نود استفاده می کنیم این متد یک پارت تولید می کند که شامل یک هدر و یک نود است که هدر به نود اشاره کرده
+    /// .
+    /// در فایند ما یک نود می دهیم و نماینده را می گیریم
+    /// .
+    /// در ایزیونین بولین می ده که آیا این دو دارای یک نمایند هستند یانه
+    /// .
+    /// در یونیون هم دو پارت به هم متصل می شوند(اگر متصل باشند کاری نمی کند) و همیشه پارت کوچک به بزرگ وصل می شود
+    /// .
+    /// O(m+nLOGn)
+    /// </summary>
+
+        
+       
+    public class LinkedLIstForm<T>//متد های این کلاس همه استاتیک اند
     {
+
+
         /// <summary>
         /// you can inter a data and get a set with a header and the node that has that data
         /// </summary>
