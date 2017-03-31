@@ -140,6 +140,36 @@ namespace Graph
 
         }
 
+        //it is an Bfs 
+        /// <summary>
+        /// یک صف از نود ها می گیریم نود اول رو می ندازیم وش تا موقعی که صف خال نشده هر سری یه نود بر می داریم
+        /// چک می کنیم دیده نشده باشه
+        /// به عنوان دیده شده علامت می زنیم
+        /// می ریزیمش تو صف نتیجه
+        /// بچه هاش رومی ریزیم تو صف نود ها و این کار رو تکرار می کنیم
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public Queue<Vertex<T>> BFS(Vertex<T> node )
+        {
+            Queue<Vertex<T>> nodesQueue=new Queue<Vertex<T>>();
+            Queue<Vertex<T>> resultQueue = new Queue<Vertex<T>>();
+           
+           nodesQueue.Enqueue(node);
+            while (nodesQueue.Count!=0)
+            {
+                node = nodesQueue.Dequeue();
+                if (node.IsSeen==true)
+                    continue;
+                resultQueue.Enqueue(node);
+                node.IsSeen = true;
+                for (int i = 0; i < Adj[node.NodeNumber].Count; i++)
+                {
+                    nodesQueue.Enqueue(Adj[node.NodeNumber].ElementAt(i));
+                }
+            }
+            return resultQueue;
+        }
 
     }
 }
