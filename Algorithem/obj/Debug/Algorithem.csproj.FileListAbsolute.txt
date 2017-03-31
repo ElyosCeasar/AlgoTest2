@@ -1,0 +1,10 @@
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Algorithem\bin\Debug\Algorithem.exe.config
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Algorithem\bin\Debug\Algorithem.exe
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Algorithem\bin\Debug\Algorithem.pdb
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Algorithem\bin\Debug\Disjoint_set.dll
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Algorithem\bin\Debug\Disjoint_set.pdb
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Algorithem\obj\Debug\Algorithem.csprojResolveAssemblyReference.cache
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Algorithem\obj\Debug\Algorithem.exe
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Algorithem\obj\Debug\Algorithem.pdb
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Algorithem\bin\Debug\Graph.dll
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\Algorithem\bin\Debug\Graph.pdb

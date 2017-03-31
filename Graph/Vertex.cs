@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace Graph
 {
@@ -9,7 +10,7 @@ namespace Graph
         public int NodeNumber { get; set; }
         public bool IsSeen{ get; set; }
 
-        public int Condition { get; set; }
+        public int Condition=Int32.MaxValue;
 
         public override string ToString()
         {

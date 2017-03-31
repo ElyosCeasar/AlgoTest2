@@ -150,10 +150,10 @@ namespace Graph
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public Queue<Vertex<T>> BFS(Vertex<T> node )
+        public List<Vertex<T>> BFS(Vertex<T> node )
         {
             Queue<Vertex<T>> nodesQueue=new Queue<Vertex<T>>();
-            Queue<Vertex<T>> resultQueue = new Queue<Vertex<T>>();
+            List<Vertex<T>> resultList = new List<Vertex<T>>();
            
            nodesQueue.Enqueue(node);
             while (nodesQueue.Count!=0)
@@ -161,14 +161,54 @@ namespace Graph
                 node = nodesQueue.Dequeue();
                 if (node.IsSeen==true)
                     continue;
-                resultQueue.Enqueue(node);
+                resultList.Add(node);
                 node.IsSeen = true;
                 for (int i = 0; i < Adj[node.NodeNumber].Count; i++)
                 {
                     nodesQueue.Enqueue(Adj[node.NodeNumber].ElementAt(i));
                 }
             }
-            return resultQueue;
+            for (int i = 0; i < resultList.Count; i++)//recycling
+            {
+                resultList[i].IsSeen = false;
+            }
+            return resultList;
+        }
+/// <summary>
+/// شبیه بی اف اس عمل می کنیم تنها فرق اینه از کاندیشن استفاده می کنیم اولی رو 0 می گذاریم بعد موقعه اضافه کردن فرزنداش به صف می آیم
+/// اگر کاندیشنشون بی نهیت بود می آیم به فاصله تبدیل می کنیم 
+/// </summary>
+/// <param name="fromNode"></param>
+/// <param name="toNode"></param>
+/// <returns></returns>
+        public int distance(Vertex<T> fromNode, Vertex<T> toNode)//گراف بی وزن
+        {
+            Queue<Vertex<T>> nodesQueue = new Queue<Vertex<T>>();
+            List<Vertex<T>> seenList = new List<Vertex<T>>();
+            int distenceResult = -1;
+            fromNode.Condition = 0;
+            nodesQueue.Enqueue(fromNode);
+            while (nodesQueue.Count != 0)
+            {
+                fromNode = nodesQueue.Dequeue();
+                if (fromNode.IsSeen == true)
+                    continue;
+                seenList.Add(fromNode);
+                fromNode.IsSeen = true;
+                for (int i = 0; i < Adj[fromNode.NodeNumber].Count; i++)
+                {
+                    if (Adj[fromNode.NodeNumber].ElementAt(i).Condition==Int32.MaxValue)
+                    Adj[fromNode.NodeNumber].ElementAt(i).Condition = fromNode.Condition + 1;
+                    nodesQueue.Enqueue(Adj[fromNode.NodeNumber].ElementAt(i));
+                }
+            }
+            distenceResult = toNode.Condition;
+            for (int i = 0; i < seenList.Count; i++)//دوباره مصرف کردنrecycling
+            {
+                seenList[i].IsSeen = false;
+                seenList[i].Condition=Int32.MaxValue;
+            }
+            return distenceResult;
         }
 
     }
