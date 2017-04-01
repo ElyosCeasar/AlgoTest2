@@ -1,0 +1,9 @@
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\MST\bin\Debug\MST.dll
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\MST\bin\Debug\MST.pdb
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\MST\bin\Debug\Disjoint_set.dll
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\MST\bin\Debug\Graph.dll
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\MST\bin\Debug\Disjoint_set.pdb
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\MST\bin\Debug\Graph.pdb
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\MST\obj\Debug\MST.csprojResolveAssemblyReference.cache
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\MST\obj\Debug\MST.dll
+C:\Users\Elyos ceasar\Desktop\algorithem\Algorithem\MST\obj\Debug\MST.pdb
