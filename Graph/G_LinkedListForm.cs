@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,17 +20,24 @@ namespace Graph
         /// adj
         /// اشاره می کنه به نود همسایه های اون نود
         /// </summary>
-        public List<LinkedList<Vertex<T>>> Adj =new List<LinkedList<Vertex<T>>>();
+        public List<LinkedList<Vertex<T>>> Adj = new List<LinkedList<Vertex<T>>>();
+
         /// <summary>
         /// یک لیست از کل ادج ها
         /// </summary>
-        public List<Edge<T>> Edges =new List<Edge<T>>();
-        private bool hasDirection = false;//گراف جهتدار هست یانه
+        public List<Edge<T>> Edges = new List<Edge<T>>();
+        /// <summary>
+        /// یک لیست از کل ادج ها
+        /// </summary>
+        public List<Vertex<T>> Vertices = new List<Vertex<T>>();
+
+        private bool hasDirection = false; //گراف جهتدار هست یانه
 
         public G_LinkedListForm(bool hasDirection)
         {
             this.hasDirection = hasDirection;
         }
+
         /// <summary>
         /// نود جدید می سازد مقدارش را که گرفتیم ست می کنیم
         /// شماره ی خونهی آخر ادج که قرار نود توش قرار بگیره رو بهش می دیم
@@ -39,13 +47,15 @@ namespace Graph
         /// <returns></returns>
         public Vertex<T> AddNode(T data)
         {
-            Vertex<T > newVertex=new Vertex<T>();
+            Vertex<T> newVertex = new Vertex<T>();
             newVertex.Data = data;
             newVertex.IsSeen = false;
             newVertex.NodeNumber = Adj.Count;
-            Adj.Add(new LinkedList<Vertex<T>>() );
+            Vertices.Add(newVertex);
+            Adj.Add(new LinkedList<Vertex<T>>());
             return newVertex;
         }
+
         /// <summary>
         /// یک ادج می سازه
         /// همسایه ها رو بسته به جهت دار بودن یا نبودن آپدیت می کنه
@@ -58,26 +68,28 @@ namespace Graph
         /// <param name="weight"></param>
         /// <returns></returns>
 
-        public Edge<T> AddEdge(Vertex<T> node1, Vertex<T> node2,int weight=0 )//we cant have two edge betwen two nodes if equals wieght
+        public Edge<T> AddEdge(Vertex<T> node1, Vertex<T> node2, int weight = 0)
+            //we cant have two edge betwen two nodes if equals wieght
         {
-            Edge<T> newEdge=new Edge<T>();
+            Edge<T> newEdge = new Edge<T>();
             newEdge.FirstVertex = node1;
             newEdge.SecondVertex = node2;
             newEdge.Weight = weight;
             newEdge.Number = Edges.Count;
-            foreach (Edge<T> VARIABLE in Edges)//if this is exist
+            foreach (Edge<T> VARIABLE in Edges) //if this is exist
             {
                 if (newEdge.Equals(VARIABLE))
                     return VARIABLE;
             }
             Edges.Add(newEdge);
-            Adj[node1.NodeNumber].AddFirst(node2);
-            if (!hasDirection)//اگه جهت دار نبود
+            Adj[node1.NodeNumber].AddLast(node2);
+            if (!hasDirection) //اگه جهت دار نبود
             {
                 Adj[node2.NodeNumber].AddFirst(node1);
             }
             return newEdge;
         }
+
         /// <summary>
         /// لیست همسایه ها رو می ده
         /// </summary>
@@ -97,6 +109,7 @@ namespace Graph
         {
             return Adj.Count;
         }
+
         /// <summary>
         /// می بینه نود ایزوله هست یانه
         /// چه جهت دار باشه چه بی جهت
@@ -106,7 +119,7 @@ namespace Graph
         public bool isIsolated(Vertex<T> node)
         {
             bool result = true;
-            if (hasDirection == true && result == true)//زمانی که جهت دار است باید چک شود نود انتهایی هیچ ادجی نباشد
+            if (hasDirection == true && result == true) //زمانی که جهت دار است باید چک شود نود انتهایی هیچ ادجی نباشد
             {
                 for (int i = 0; i < Edges.Count; i++)
                 {
@@ -150,16 +163,16 @@ namespace Graph
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public List<Vertex<T>> BFS(Vertex<T> node )
+        public List<Vertex<T>> BFS(Vertex<T> node)
         {
-            Queue<Vertex<T>> nodesQueue=new Queue<Vertex<T>>();
+            Queue<Vertex<T>> nodesQueue = new Queue<Vertex<T>>();
             List<Vertex<T>> resultList = new List<Vertex<T>>();
-           
-           nodesQueue.Enqueue(node);
-            while (nodesQueue.Count!=0)
+
+            nodesQueue.Enqueue(node);
+            while (nodesQueue.Count != 0)
             {
                 node = nodesQueue.Dequeue();
-                if (node.IsSeen==true)
+                if (node.IsSeen == true)
                     continue;
                 resultList.Add(node);
                 node.IsSeen = true;
@@ -168,20 +181,21 @@ namespace Graph
                     nodesQueue.Enqueue(Adj[node.NodeNumber].ElementAt(i));
                 }
             }
-            for (int i = 0; i < resultList.Count; i++)//recycling
+            for (int i = 0; i < resultList.Count; i++) //recycling
             {
                 resultList[i].IsSeen = false;
             }
             return resultList;
         }
-/// <summary>
-/// شبیه بی اف اس عمل می کنیم تنها فرق اینه از کاندیشن استفاده می کنیم اولی رو 0 می گذاریم بعد موقعه اضافه کردن فرزنداش به صف می آیم
-/// اگر کاندیشنشون بی نهیت بود می آیم به فاصله تبدیل می کنیم 
-/// </summary>
-/// <param name="fromNode"></param>
-/// <param name="toNode"></param>
-/// <returns></returns>
-        public int distance(Vertex<T> fromNode, Vertex<T> toNode)//گراف بی وزن
+
+        /// <summary>
+        /// شبیه بی اف اس عمل می کنیم تنها فرق اینه از کاندیشن استفاده می کنیم اولی رو 0 می گذاریم بعد موقعه اضافه کردن فرزنداش به صف می آیم
+        /// اگر کاندیشنشون بی نهیت بود می آیم به فاصله تبدیل می کنیمuy 
+        /// </summary>
+        /// <param name="fromNode"></param>
+        /// <param name="toNode"></param>
+        /// <returns></returns>
+        public int distance(Vertex<T> fromNode, Vertex<T> toNode) //گراف بی وزن
         {
             Queue<Vertex<T>> nodesQueue = new Queue<Vertex<T>>();
             List<Vertex<T>> seenList = new List<Vertex<T>>();
@@ -197,19 +211,84 @@ namespace Graph
                 fromNode.IsSeen = true;
                 for (int i = 0; i < Adj[fromNode.NodeNumber].Count; i++)
                 {
-                    if (Adj[fromNode.NodeNumber].ElementAt(i).Condition==Int32.MaxValue)
-                    Adj[fromNode.NodeNumber].ElementAt(i).Condition = fromNode.Condition + 1;
+                    if (Adj[fromNode.NodeNumber].ElementAt(i).Condition == Int32.MaxValue)
+                        Adj[fromNode.NodeNumber].ElementAt(i).Condition = fromNode.Condition + 1;
                     nodesQueue.Enqueue(Adj[fromNode.NodeNumber].ElementAt(i));
                 }
             }
             distenceResult = toNode.Condition;
-            for (int i = 0; i < seenList.Count; i++)//دوباره مصرف کردنrecycling
+            for (int i = 0; i < seenList.Count; i++) //دوباره مصرف کردنrecycling
             {
                 seenList[i].IsSeen = false;
-                seenList[i].Condition=Int32.MaxValue;
+                seenList[i].Condition = Int32.MaxValue;
             }
             return distenceResult;
         }
+        /// <summary>
+        /// برای درخت ها از این دی اف ای استفاده می کنیم
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public List<Vertex<T>> DFSClassic(Vertex<T> node)
+        {
+            Stack<Vertex<T>> nodesStack = new Stack<Vertex<T>>();
+            List<Vertex<T>> resultList = new List<Vertex<T>>();
+            nodesStack.Push(node);
+            while (nodesStack.Count != 0)
+            {
+                node = nodesStack.Pop();
+                if (node.IsSeen == true)
+                    continue;
+                resultList.Add(node);
+                node.IsSeen = true;
+                for (int i = 0; i < Adj[node.NodeNumber].Count; i++)
+                {
+                    nodesStack.Push(Adj[node.NodeNumber].ElementAt(i));
+                }
+            }
+            for (int i = 0; i < resultList.Count; i++) //recycling
+            {
+                resultList[i].IsSeen = false;
+            }
+            return resultList;
+        }
+        /// <summary>
+        /// دی اف اسی مطابق سی ال آر اس
+        /// </summary>
+        /// <returns></returns>
+        public List<Vertex<T>> DFS()
+        {
+            List<Vertex<T>> resultList = new List<Vertex<T>>();
+            for (int i = 0; i < Vertices.Count; i++)
+            {
+                if (Vertices[i].Condition == Int32.MaxValue) //white
+                {
+                    resultList.Add(Vertices[i]);
+                    DFS_VISIT(Vertices[i],resultList);
+                   
+                }
+            }
+            for (int i = 0; i < Vertices.Count; i++)//بازیافت
+            {
+                Vertices[i].Condition=Int32.MaxValue;
+            }
+            return resultList;
+        }
+        private void DFS_VISIT(Vertex<T> node, List<Vertex<T>> resultList)
+        {
+            node.Condition = -1;//gray
+            for (int i = 0; i < Adj[node.NodeNumber].Count; i++)
+            {
+                if (Adj[node.NodeNumber].ElementAt(i).Condition == Int32.MaxValue)//white
+                {
+                   resultList.Add(Adj[node.NodeNumber].ElementAt(i));
+                    DFS_VISIT(Adj[node.NodeNumber].ElementAt(i), resultList);
+ 
 
+                }
+
+                node.Condition = -2;//black
+            }
+        }
     }
 }
